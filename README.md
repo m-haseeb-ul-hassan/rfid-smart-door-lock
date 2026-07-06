@@ -6,6 +6,19 @@ The system was designed with a specific use case in mind: a caregiver-access doo
 
 ![Caregiver Assistive Entry Concept](docs/concept_deployment_scene.png)
 
+### Hardware Pin Configuration
+
+| Component | RC522 RFID Module Pin | Arduino Uno Pin | Description |
+| :--- | :--- | :--- | :--- |
+| **SDA (SS)** | Pin 1 | D10 | SPI Slave Select |
+| **SCK** | Pin 2 | D13 | SPI Clock Bus |
+| **MOSI** | Pin 3 | D11 | SPI Master Out Slave In |
+| **MISO** | Pin 4 | D12 | SPI Master In Slave Out |
+| **IRQ** | Pin 5 | *Unused* | Interrupt Request |
+| **GND** | Pin 6 | GND | Power Ground |
+| **RST** | Pin 7 | D9 | Module Reset |
+| **3.3V** | Pin 8 | 3.3V | 3.3V Power Supply Input |
+
 ---
 
 ## How It Works
