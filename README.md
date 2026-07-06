@@ -4,6 +4,8 @@ A security door lock system built for my Digital Logic Design (COMP 206) final p
 
 The system was designed with a specific use case in mind: a caregiver-access door lock for a bedridden patient, where access can be granted either by scanning an authorized RFID card or by pressing a remote button (for the patient/caregiver on the inside).
 
+![Caregiver Assistive Entry Concept](docs/concept_deployment_scene.png)
+
 ---
 
 ## How It Works
