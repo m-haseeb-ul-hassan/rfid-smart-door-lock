@@ -1,12 +1,12 @@
-# RFID-Based Smart Door Lock System
+# RFID Based Smart Door Lock System
 
-A security door lock system built for my Digital Logic Design (COMP 206) final project. It combines RFID authentication with a finite state machine (FSM) design, simulated in both **Wokwi** (Arduino-level simulation) and **Logisim Evolution** (gate-level logic design).
+A security door lock system built for my Digital Logic Design (COMP 206) final project. It combines RFID authentication with a finite state machine (FSM) design, simulated in both **Wokwi** (Arduino level simulation) and **Logisim Evolution** (gate level logic design).
 
-The system was designed with a specific use case in mind: a caregiver-access door lock for a bedridden patient, where access can be granted either by scanning an authorized RFID card or by pressing a remote button (for the patient/caregiver on the inside).
+The system was designed with a specific use case in mind: a caregiver access door lock for a bedridden patient, where access can be granted either by scanning an authorized RFID card or by pressing a remote button (for the patient/caregiver on the inside).
 
 ![Caregiver Assistive Entry Concept](docs/concept_deployment_scene.png)
 
-*AI-generated visualization of the intended real-world deployment scenario.*
+*AI generated visualization of the intended real world deployment scenario.*
 
 ---
 
@@ -17,16 +17,16 @@ The system was designed with a specific use case in mind: a caregiver-access doo
 2. Access can be triggered two ways:
    - An RFID card is scanned and matched against a stored authorized UID
    - The remote/patient button is pressed directly
-3. On a match: green LED turns on, a confirmation beep sounds, the servo unlatches the door for a fixed clearance window, then automatically re-locks.
+3. On a match: green LED turns on, a confirmation beep sounds, the servo unlatches the door for a fixed clearance window, then automatically re locks.
 4. On a mismatch: red LED and buzzer alarm trigger and the system locks into an alarm state until manually reset via the button.
 
 **Logic design (Logisim):**
-The core comparator/lock logic was modeled as a 3-state FSM:
+The core comparator/lock logic was modeled as a 3 state FSM:
 - **Locked** (default/secured state)
 - **Unlocked** (servo open, timer running)
 - **Alarm** (mismatch detected, held until reset)
 
-State transitions are driven by an XNOR-based UID comparator (checks scanned bits against the stored authorized code) and D flip-flops hold the current state between clock cycles. A counter implements the 5-second auto-relock timer so the system returns to Locked automatically instead of staying open indefinitely.
+State transitions are driven by an XNOR based UID comparator (checks scanned bits against the stored authorized code) and D flip flops hold the current state between clock cycles. A counter implements the 5 second auto relock timer so the system returns to Locked automatically instead of staying open indefinitely.
 
 ---
 
@@ -37,7 +37,7 @@ State transitions are driven by an XNOR-based UID comparator (checks scanned bit
 *Wokwi wiring diagram showing the RFID reader, LCD, servo, LEDs, buzzer, and button connected to the Arduino Uno.*
 
 ### Concept Illustration
-*AI-generated visualizations of the intended real-world use case and component kit.*
+*AI generated visualizations of the intended real world use case and component kit.*
 
 ![Component Kit Concept](docs/concept_component_kit.png)
 
@@ -87,12 +87,12 @@ State transitions are driven by an XNOR-based UID comparator (checks scanned bit
 ```
 ├── rfid_door_lock.ino        # Arduino sketch (Wokwi simulation logic)
 ├── logisim/
-│   └── door_lock_fsm.circ    # Logisim Evolution FSM (comparator + flip-flops + timer)
+│   └── door_lock_fsm.circ    # Logisim Evolution FSM (comparator + flip flops + timer)
 ├── docs/
 │   ├── circuit_diagram.png           # Wokwi wiring diagram
 │   ├── project_poster.pdf            # Academic poster submitted for the course
-│   ├── concept_component_kit.png     # AI-generated component kit visualization
-│   └── concept_deployment_scene.png  # AI-generated deployment scenario visualization
+│   ├── concept_component_kit.png     # AI generated component kit visualization
+│   └── concept_deployment_scene.png  # AI generated deployment scenario visualization
 └── README.md
 ```
 
@@ -100,7 +100,7 @@ State transitions are driven by an XNOR-based UID comparator (checks scanned bit
 
 ## Tools Used
 - **Wokwi** — Arduino hardware simulation
-- **Logisim Evolution** — gate-level FSM design (XNOR comparator, D flip-flops, counter)
+- **Logisim Evolution** — gate level FSM design (XNOR comparator, D flip flops, counter)
 - **Arduino C++** (MFRC522, LiquidCrystal_I2C, Servo libraries)
 
 ---
@@ -124,18 +124,18 @@ Or run it manually:
 ---
 
 ## Known Limitations
-- The auto-relock-to-Secured transition is not fully self-triggering in the current FSM implementation:
+- The auto relock to Secured transition is not fully selftriggering in the current FSM implementation:
   - When access is granted via **RF Remote**, the system does not automatically return to the `System_Secured` state.
   - When access is granted via **Card Present**, the system only returns to `System_Secured` if the card is removed immediately after being scanned; otherwise it remains in the unlocked state.
-  - The Arduino/Wokwi firmware version handles this correctly via a software-based 5-second timer (`delay()` call), so the physical simulation behaves as intended — this limitation is specific to the standalone Logisim FSM model.
-- Future iteration: add a proper synchronous counter/timer circuit in Logisim so the FSM auto-transitions back to `Secured` regardless of input method, matching the firmware behavior exactly.
+  - The Arduino/Wokwi firmware version handles this correctly via a software based 5 second timer (`delay()` call), so the physical simulation behaves as intended — this limitation is specific to the standalone Logisim FSM model.
+- Future iteration: add a proper synchronous counter/timer circuit in Logisim so the FSM auto transitions back to `Secured` regardless of input method, matching the firmware behavior exactly.
 
 ---
 
 ## Possible Improvements
 - Support multiple authorized UIDs instead of a single hardcoded card
 - Add an EEPROM log of access attempts (granted/denied + timestamp)
-- Replace the fixed 5-second timer with a configurable delay
+- Replace the fixed 5 second timer with a configurable delay
 
 ---
 
